@@ -1,0 +1,222 @@
+# run:  node src/cli.js input/myKb.yaml -o output/myKb to generate
+units:
+  # Choc keycaps are 17.5 x 16.5
+  keycapX: cx-.5
+  keycapY: cy-.5
+  # 1.5 Choc keycaps are 26.5 (18*1.5 - .5) x 16.5
+  keycap15X: cx*1.5-.5
+  keycap15Y: cy-.5
+  # nano rect dimension
+  #mcx: cx+3
+  mcx: 17.526
+  mcy: 56.584
+  #mcy: 2.5cy
+points:
+  key: # default settings for all keys
+    origin: [-cx/2, -cy/2] #ref splay around the bottom left corner
+    spread: cx
+    width: cx
+    height: cy
+    padding: cy
+  zones:
+    matrix:
+      columns:
+        pinky:
+          key:
+            splay: 15
+          rows:
+            bottom:
+              bind: [0,0,0,0]
+              column_net: P7
+            home:
+              bind: [0,10,0,0]
+              column_net: P6
+            top:
+              bind: [0,10,0,0]
+              column_net: P5 
+        ring:
+          key:
+            stagger: (5/6)cy
+            splay: -5
+          rows:
+            bottom:
+              bind: [0,20,0,0]
+              column_net: P4
+            home:
+              bind: [0,0,0,0]
+              column_net: P3
+            top:
+              bind: [0,10,0,0]
+              column_net: P0
+        middle:
+          key:
+            stagger: cy/3
+            splay: -5
+          rows:
+            bottom:
+              column_net: P1
+            home:
+              column_net: P19
+            top:
+              column_net: P18
+        index:
+          key:
+            origin: [-cx/2,-cy/2+1/3cy] #to make symetric 
+            stagger: -cy/3
+            splay: -5
+          rows:
+            bottom:
+              bind: [0,0,0,0]
+              column_net: P15
+            home:
+              bind: [0,0,0,0]
+              column_net: P14
+            top:
+              bind: [0,0,0,10]
+              column_net: P16
+        inner:
+          key:
+            stagger: -cy/4
+          rows: 
+            bottom:
+              bind: [0,0,0,0]
+              column_net: P10
+            home:
+              bind: [0,0,0,0]
+              column_net: P20
+            top:
+              column_net: P21
+
+    thumb:
+      anchor:
+        - ref: matrix_inner_bottom
+        - shift: [-(cy-cx)/2,-1.5cx-(cy-1.5cx)/2] # move to overlap bottom left corner
+        - shift: [3/2cx,-cy/2] # move for spacing
+      key:
+        spread: -cx
+      columns:
+        right:
+          key:
+            origin: [cy/2, 1.5cx/2] # grab point where top left corner will come after rotation
+            splay: -30
+            rotate: 90
+            width: 1.5cx
+            column_net: P9
+            bind: [25,0,0,0]
+        center:
+          key:
+            splay: 25
+            spread: (-cy-cx)/2
+            stagger: (-1.5cx/2)+cy/2 # shift to lineup bottoms
+            origin: [.5cx,-.5cy]
+            column_net: P9
+            bind: [0,0,0,0]
+        left:
+          key:
+            origin: [.5cx,-.5cy]
+            splay: 10
+            column_net: P9
+            bind: [10,5,0,0]
+
+
+
+outlines:
+  raw:
+    - what: rectangle
+      where: -thumb_right
+      bound: true
+      size: [cx , cy]  
+    - what: rectangle
+      where: thumb_right
+      bound: true
+      size: [1.5cx, 1cy]
+    - what: polygon
+      points:
+        - ref: thumb_right
+          shift: [-1.5cx/2, -cy/2]
+        - ref: thumb_right
+          shift: [-1.5cx/2, cy/2]
+        - ref: matrix_inner_top
+          shift: [-cx/2, cy/2]
+        - ref: matrix_inner_top
+          shift: [cx/2, cy/2]
+        - shift: [0,-cy/4]
+        - shift: [20,0]
+        - shift: [0,-60]
+      #operation: stack
+
+  margin:
+    - what: outline
+      name: raw
+      expand: 1
+      fillet: 1
+  keycap_outlines:
+    - what: rectangle
+      where: -thumb_right
+      bound: false
+      size: [keycapX, keycapY] 
+      corner: 1
+    - what: rectangle
+      where: thumb_right
+      bound: false
+      size: [keycap15X, keycap15Y] 
+      corner: 1
+  chocSwitches:
+    - what: rectangle
+      where: true
+      bound: false
+      size: [15, 15] 
+      corner: 1
+  board:
+    - what: outline
+      name: margin
+pcbs:
+  architeuthis_dux:
+    outlines:
+      main:
+        outline: board
+    footprints:
+      choc_hotswap:
+        what: choc
+        where: true
+        params:
+          from: "{{column_net}}"
+          to: GND
+          keycaps: true
+          reverse: true
+          hotswap: true
+      choc:
+        what: choc
+        where: true
+        adjust:
+          rotate: 180
+        params:
+          from: "{{column_net}}"
+          to: GND
+          keycaps: true
+          reverse: true
+      promicro:
+        what: niceNanoPretty
+        where:
+          ref: matrix_inner_top
+          shift: [1cx+2, -1cy + 2.216]
+      mountingHoles:
+        what: mountHole
+        where:
+          ref: matrix_pinky_top
+          shift: [cx/2 + 1.1,cy/2-1.1]
+      resetSwitch:
+        what: resetSwitchTop
+        where:
+          ref: matrix_inner_bottom
+          shift: [cx/2 + 20, -cy/2]
+          rotate: 90
+      battCon:
+        what: batteryConnector
+        where:
+          ref: matrix_inner_bottom
+          shift: [cx/2 + 2, -cy/2 + (5.9/2)]
+          rotate: 90
+
+
+      

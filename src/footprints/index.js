@@ -17,4 +17,10 @@ module.exports = {
     slider: require('./slider'),
     trrs: require('./trrs'),
     via: require('./via'),
+    niceNanoPretty: require('./niceNanoPretty_notWorking_correctly'),
+    niceNano: require('./niceNanoPretty'),
+    mountHole: require('./mountHole'),
+    powerSwitch: require('./powerSwitch'),
+    resetSwitchTop: require('./resetSwitchTop'),
+    batteryConnector: require('./batteryConnector'),
 }
