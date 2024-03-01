@@ -20,7 +20,9 @@ module.exports = {
     niceNanoPretty: require('./niceNanoPretty_notWorking_correctly'),
     niceNano: require('./niceNanoPretty'),
     mountHole: require('./mountHole'),
+    reinforcedMountHole: require('./reinforcedMountHole'),
     powerSwitch: require('./powerSwitch'),
     resetSwitchTop: require('./resetSwitchTop'),
+    resetSwitchSide: require('./resetSwitchSide'),
     batteryConnector: require('./batteryConnector'),
 }

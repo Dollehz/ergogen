@@ -91,7 +91,7 @@ points:
       anchor:
         - ref: matrix_inner_bottom
         - shift: [-(cy-cx)/2,-1.5cx-(cy-1.5cx)/2] # move to overlap bottom left corner
-        - shift: [3/2cx,-cy/2] # move for spacing
+        - shift: [3cx/2,-cy/2] # move for spacing
       key:
         spread: -cx
       columns:
@@ -148,7 +148,7 @@ outlines:
   margin:
     - what: outline
       name: raw
-      expand: 1
+      expand: 2
       fillet: 1
   keycap_outlines:
     - what: rectangle
@@ -200,23 +200,56 @@ pcbs:
         where:
           ref: matrix_inner_top
           shift: [1cx+2, -1cy + 2.216]
-      mountingHoles:
-        what: mountHole
+      mountingHole1:
+        what: reinforcedMountHole
         where:
           ref: matrix_pinky_top
-          shift: [cx/2 + 1.1,cy/2-1.1]
+          shift: [cx/2 + ((13cy/6)-1.1) * tan(2.5deg),cy/2-1.1]
+      #mountingHole2:
+       # what: reinforcedMountHole
+       # where:
+       # ref: matrix_ring_top
+       # shift: [cx/2 + ((8cy/3)-(1.1+cy/2)) * tan(2.5deg),0]
+      mountingHole3:
+        what: reinforcedMountHole
+        where:
+          ref: matrix_middle_home
+          shift: [cx/2 + (2cy - 1.1) * tan(2.5deg),cy/2]
+      mountingHole4:
+        what: reinforcedMountHole
+        where:
+          ref: matrix_index_bottom
+          #shift: [9cx/4 - cy * cos(30deg) - ( cx * cos(5deg)),-(3*cy)/4 - cx * ((3 * cos(30deg))/2) + cx * sin(5deg)]
+          #shift: [cx * (9/4 - 3*cos(5deg)/2) - cy * (1*cos(30deg)+ 1*sin(5deg)), cx * ((-3/2)*cos(30deg) + (1/2)sin(5deg)) + cy * ((-3/4)+1*cos(5deg))]
+          shift: [0,(((-(cx * (9/4 - 3*cos(5deg)/2) - cy * (1*cos(30deg)+ 1*sin(5deg))) * tan(5deg) + cx * ((-3/2)*cos(30deg) + (1/2)sin(5deg)) + cy * ((-3/4)+1*cos(5deg)))+(cx/2))/2) -(cx/2)]
+      mountingHole5:
+        what: reinforcedMountHole
+        where:
+          ref: thumb_right
+          shift: [0,(1.5cx/2) * tan(12.5deg) + cy/2]
       resetSwitch:
-        what: resetSwitchTop
+        what: resetSwitchSide
         where:
           ref: matrix_inner_bottom
-          shift: [cx/2 + 20, -cy/2]
-          rotate: 90
+          shift: [cx/2 + 19, -cy/8]
+          rotate: -90
+        params:
+          reversible: true
       battCon:
         what: batteryConnector
         where:
           ref: matrix_inner_bottom
-          shift: [cx/2 + 2, -cy/2 + (5.9/2)]
+          shift: [cx/2 + (5.9/2) + 2, 0 ]
+        params:
+          reversible: true
+      powerSwithc:
+        what: powerSwitch
+        where:
+          ref: matrix_inner_top
+          shift: [1cx+2, cy/4-1]
           rotate: 90
+        params:
+          reversible: true
 
 
       
