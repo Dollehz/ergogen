@@ -6,11 +6,9 @@ units:
   # 1.5 Choc keycaps are 26.5 (18*1.5 - .5) x 16.5
   keycap15X: cx*1.5-.5
   keycap15Y: cy-.5
-  # nano rect dimension
-  #mcx: cx+3
-  mcx: 17.526
-  mcy: 56.584
-  #mcy: 2.5cy
+  # left thumb top center border referenced to index bottom center
+  innrThumbTopX: cx * (9/4) - cy * (1*cos(30deg)) - cx*cos(5deg) - (cx/2) cos(15deg) - cy sin(15deg)
+  innrThumbTopY: cx * ((-3/2)*cos(30deg)) + cy * ((-3/4)) + cx*sin(5deg) - (cx/2) sin(15deg) + cy cos(15deg)
 points:
   key: # default settings for all keys
     origin: [-cx/2, -cy/2] #ref splay around the bottom left corner
@@ -27,13 +25,13 @@ points:
           rows:
             bottom:
               bind: [0,0,0,0]
-              column_net: P7
+              column_net: P10
             home:
               bind: [0,10,0,0]
-              column_net: P6
+              column_net: P9
             top:
               bind: [0,10,0,0]
-              column_net: P5 
+              column_net: P4
         ring:
           key:
             stagger: (5/6)cy
@@ -41,24 +39,24 @@ points:
           rows:
             bottom:
               bind: [0,20,0,0]
-              column_net: P4
+              column_net: P16
             home:
               bind: [0,0,0,0]
-              column_net: P3
+              column_net: P8
             top:
               bind: [0,10,0,0]
-              column_net: P0
+              column_net: P3
         middle:
           key:
             stagger: cy/3
             splay: -5
           rows:
             bottom:
-              column_net: P1
+              column_net: P14
             home:
-              column_net: P19
+              column_net: P7
             top:
-              column_net: P18
+              column_net: P2
         index:
           key:
             origin: [-cx/2,-cy/2+1/3cy] #to make symetric 
@@ -66,26 +64,26 @@ points:
             splay: -5
           rows:
             bottom:
-              bind: [0,0,0,0]
+              bind: [0,0,15,0]
               column_net: P15
             home:
               bind: [0,0,0,0]
-              column_net: P14
+              column_net: P6
             top:
               bind: [0,0,0,10]
-              column_net: P16
+              column_net: P0
         inner:
           key:
             stagger: -cy/4
           rows: 
             bottom:
               bind: [0,0,0,0]
-              column_net: P10
+              column_net: P18
             home:
               bind: [0,0,0,0]
-              column_net: P20
+              column_net: P5
             top:
-              column_net: P21
+              column_net: P1
 
     thumb:
       anchor:
@@ -101,7 +99,7 @@ points:
             splay: -30
             rotate: 90
             width: 1.5cx
-            column_net: P9
+            column_net: P21
             bind: [25,0,0,0]
         center:
           key:
@@ -109,14 +107,14 @@ points:
             spread: (-cy-cx)/2
             stagger: (-1.5cx/2)+cy/2 # shift to lineup bottoms
             origin: [.5cx,-.5cy]
-            column_net: P9
+            column_net: P20
             bind: [0,0,0,0]
         left:
           key:
             origin: [.5cx,-.5cy]
-            splay: 10
-            column_net: P9
-            bind: [10,5,0,0]
+            splay: 20
+            column_net: P19
+            bind: [0,5,0,0]
 
 
 
@@ -185,16 +183,16 @@ pcbs:
           keycaps: true
           reverse: true
           hotswap: true
-      choc:
-        what: choc
-        where: true
-        adjust:
-          rotate: 180
-        params:
-          from: "{{column_net}}"
-          to: GND
-          keycaps: true
-          reverse: true
+      # choc:
+      #   what: choc
+      #   where: true
+      #   adjust:
+      #     rotate: 180
+      #   params:
+      #     from: "{{column_net}}"
+      #     to: GND
+      #     keycaps: true
+      #     reverse: true
       promicro:
         what: niceNanoPretty
         where:
@@ -205,11 +203,16 @@ pcbs:
         where:
           ref: matrix_pinky_top
           shift: [cx/2 + ((13cy/6)-1.1) * tan(2.5deg),cy/2-1.1]
-      #mountingHole2:
+      #mountingHoleRingMiddle:
        # what: reinforcedMountHole
        # where:
        # ref: matrix_ring_top
        # shift: [cx/2 + ((8cy/3)-(1.1+cy/2)) * tan(2.5deg),0]
+      # mountingHoleBelowMcu:
+      #   what: reinforcedMountHole
+      #   where:
+      #     ref: matrix_index_bottom
+      #     shift: [2cx+2, ((innrThumbTopY - innrThumbTopX * tan(15deg)) + cy/2) / 2 - (cy/2)]
       mountingHole3:
         what: reinforcedMountHole
         where:
@@ -219,20 +222,19 @@ pcbs:
         what: reinforcedMountHole
         where:
           ref: matrix_index_bottom
-          #shift: [9cx/4 - cy * cos(30deg) - ( cx * cos(5deg)),-(3*cy)/4 - cx * ((3 * cos(30deg))/2) + cx * sin(5deg)]
-          #shift: [cx * (9/4 - 3*cos(5deg)/2) - cy * (1*cos(30deg)+ 1*sin(5deg)), cx * ((-3/2)*cos(30deg) + (1/2)sin(5deg)) + cy * ((-3/4)+1*cos(5deg))]
-          shift: [0,(((-(cx * (9/4 - 3*cos(5deg)/2) - cy * (1*cos(30deg)+ 1*sin(5deg))) * tan(5deg) + cx * ((-3/2)*cos(30deg) + (1/2)sin(5deg)) + cy * ((-3/4)+1*cos(5deg)))+(cx/2))/2) -(cx/2)]
+          shift: [0, ((innrThumbTopY - innrThumbTopX * tan(15deg)) + cy/2) / 2 - (cy/2)]
+
       mountingHole5:
         what: reinforcedMountHole
         where:
           ref: thumb_right
           shift: [0,(1.5cx/2) * tan(12.5deg) + cy/2]
       resetSwitch:
-        what: resetSwitchSide
+        what: resetSwitchTop
         where:
           ref: matrix_inner_bottom
           shift: [cx/2 + 19, -cy/8]
-          rotate: -90
+          rotate: 90
         params:
           reversible: true
       battCon:
@@ -242,7 +244,7 @@ pcbs:
           shift: [cx/2 + (5.9/2) + 2, 0 ]
         params:
           reversible: true
-      powerSwithc:
+      powerSwitch:
         what: powerSwitch
         where:
           ref: matrix_inner_top
@@ -250,6 +252,7 @@ pcbs:
           rotate: 90
         params:
           reversible: true
+
 
 
       

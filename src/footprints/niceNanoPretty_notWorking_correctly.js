@@ -261,7 +261,6 @@ module.exports = {
             (pad ${via_num_right} thru_hole circle (at 3.4 ${-12.7 + row_offset_y}) (size ${p.via_size} ${p.via_size}) (drill ${p.via_drill}) (layers *.Cu *.Mask) ${net_right})
             (pad ${via_num_left} thru_hole circle (at -3.4 ${-12.7 + row_offset_y}) (size ${p.via_size} ${p.via_size}) (drill ${p.via_drill}) (layers *.Cu *.Mask) ${net_left})
           `
-  
         let socket_row_rectangular_jumpers = `
           ${''/* Jumper Pads - Front Left */}
           (pad ${socket_hole_num_left} smd rect (at -5.48 ${-12.7 + row_offset_y}) (size 0.6 1.2) (layers F.Cu F.Mask) ${p.local_net(socket_hole_num_left).str})
@@ -491,8 +490,6 @@ module.exports = {
         p.show_via_labels, p.show_silk_labels
       )
       const traces = gen_traces()
-  
-  
       return `
             ${''/* Controller*/}
             ${common_top}
