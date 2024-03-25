@@ -34,11 +34,11 @@ points:
               column_net: P4
         ring:
           key:
-            stagger: (5/6)cy
+            stagger: (1/3)cy
             splay: -5
           rows:
             bottom:
-              bind: [0,0,0,0]
+              bind: [0,20,0,0]
               column_net: P16
             home:
               bind: [0,0,0,0]
@@ -52,8 +52,8 @@ points:
             splay: -5
           rows:
             bottom:
-              bind: [0,0,cy/3,0]
               column_net: P14
+              bind: [0,0,15,0]
             home:
               column_net: P7
             top:
@@ -65,7 +65,7 @@ points:
             splay: -5
           rows:
             bottom:
-              bind: [0,0,0,0]
+              bind: [0,0,15,0]
               column_net: P15
             home:
               bind: [0,0,0,0]
@@ -90,47 +90,36 @@ points:
       anchor:
         - ref: matrix_inner_bottom
         - shift: [-(cy-cx)/2,-1.5cx-(cy-1.5cx)/2] # move to overlap bottom left corner
-        - shift: [13cx/10,-2cy/10] # move for spacing
+        - shift: [3cx/2,-cy/2] # move for spacing
       key:
         spread: -cx
       columns:
         right:
           key:
             origin: [cy/2, 1.5cx/2] # grab point where top left corner will come after rotation
-            splay: -20
+            splay: -30
             rotate: 90
             width: 1.5cx
             column_net: P21
-            bind: [15,0,0,0]
+            bind: [50,0,0,0]
         center:
           key:
-            splay: 15
+            splay: 25
             spread: (-cy-cx)/2
             stagger: (-1.5cx/2)+cy/2 # shift to lineup bottoms
             origin: [.5cx,-.5cy]
             column_net: P20
             bind: [0,0,0,0]
-        left:
-          key:
-            origin: [.5cx,-.5cy]
-            splay: 10
-            column_net: P19
-            bind: [0,5,0,0]
+        # left:
+        #   key:
+        #     origin: [.5cx,-.5cy]
+        #     splay: 20
+        #     column_net: P19
+        #     bind: [0,5,0,0]
 
 
 
 outlines:
-  fusionLayout:
-    - what: rectangle
-      where: -thumb_right
-      bound: false
-      size: [cx , cy] 
-      operation: stack 
-    - what: rectangle
-      where: thumb_right
-      bound: false
-      size: [1.5cx, 1cy]
-      operation: stack 
   raw:
     - what: rectangle
       where: -thumb_right
@@ -140,20 +129,20 @@ outlines:
       where: thumb_right
       bound: true
       size: [1.5cx, 1cy]
-    - what: polygon
-      points:
-        - ref: thumb_right
-          shift: [-1.5cx/2, -cy/2]
-        - ref: thumb_right
-          shift: [-1.5cx/2, cy/2]
-        - ref: matrix_inner_top
-          shift: [-cx/2, cy/2]
-        - ref: matrix_inner_top
-          shift: [cx/2, cy/2]
-        #- shift: [0,-cy/4] #stepdown on top
-        - shift: [19,0]
-        - shift: [0,-60]
-      #operation: stack
+    # - what: polygon
+    #   points:
+    #     - ref: thumb_right
+    #       shift: [-1.5cx/2, -cy/2]
+    #     - ref: thumb_right
+    #       shift: [-1.5cx/2, cy/2]
+    #     - ref: matrix_inner_top
+    #       shift: [-cx/2, cy/2]
+    #     - ref: matrix_inner_top
+    #       shift: [cx/2, cy/2]
+    #     #- shift: [0,-cy/4] #stepdown on top
+    #     - shift: [19,0]
+    #     - shift: [0,-60]
+    #   #operation: stack
 
   margin:
     - what: outline
@@ -208,8 +197,9 @@ pcbs:
       promicro:
         what: niceNanoPretty
         where:
-          ref: matrix_inner_top
-          shift: [1cx+1, -35/2 + cy/2]
+          ref: matrix_middle_bottom
+          shift: [0, -cx/2 - 18/2 -1 ]
+          rotate: 90
       mountingHole1:
         what: reinforcedMountHole
         where:
@@ -242,35 +232,31 @@ pcbs:
           ref: thumb_right
           shift: [0,(1.5cx/2) * tan(12.5deg) + cy/2]
       resetSwitch:
-        what: miniReset
+        what: resetSwitchSide
         where:
           ref: matrix_inner_bottom
-          shift: [cx/2 + 20 -3, 3]
+          shift: [cx/2 + 19, -cy/8]
           rotate: -90
         params:
-          #reversible: true
-          #include_bosses: true
-          # include_courtyard: true
+          reversible: true
+          include_bosses: true
+          include_courtyard: true
       battCon:
         what: batteryConnector
         where:
           ref: matrix_inner_bottom
-          shift: [cx/2 + 2.85, 3]
-          rotate: 90
+          shift: [cx/2 + (5.9/2) + 2, 0 ]
         params:
           reversible: true
-      # powerSwitchBelowNiceNano:
-      #   what: powerSwitch
-      #   where:
-      #     ref: matrix_inner_top
-      #     shift: [1cx+1, cy/2 -3 +1]
-      #     rotate: 90
-      #   params:
-      #     reversible: true
       powerSwitch:
         what: powerSwitch
         where:
-          ref: matrix_inner_bottom
-          shift: [cx/2 + 20, -3]
+          ref: matrix_inner_top
+          shift: [1cx+1, cy/4-1]
+          rotate: 90
         params:
           reversible: true
+
+
+
+      

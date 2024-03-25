@@ -115,7 +115,6 @@ module.exports = {
   // end my geknoei
 
     if(p.reverse) {
-      console.log(`(segment (start -8.275 -3.75) (end ${adjust_point(-8.275,-5.95+.5)}) (width 0.25) (layer "F.Cu") (net 2))`);
       return `
         ${standard}
         ${vias}
