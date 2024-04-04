@@ -454,18 +454,20 @@ module.exports = {
           )
 
           ${''/* USB Socket Outline */}
-          (fp_line (start 3.556 -18.034) (end 3.556 -16.51) (layer Dwgs.User) (width 0.15))
-          (fp_line (start -3.81 -16.51) (end -3.81 -18.034) (layer Dwgs.User) (width 0.15))
-          (fp_line (start -3.81 -18.034) (end 3.556 -18.034) (layer Dwgs.User) (width 0.15))
+          (fp_line (start -4.5 -16.65) (end -4.5 -18.15) (layer Dwgs.User) (width 0.15))
+          (fp_line (start -4.5 -18.15) (end 4.5 -18.15) (layer Dwgs.User) (width 0.15))
+          (fp_line (start 4.5 -18.15) (end 4.5 -16.65) (layer Dwgs.User) (width 0.15))
 
 
           ${''/* Controller top part outline */}
-          (fp_line (start -8.89 -16.51) (end 8.89 -16.51) (layer F.Fab) (width 0.12))
-          (fp_line (start -8.89 -16.51) (end -8.89 -14) (layer F.Fab) (width 0.12))
-          (fp_line (start 8.89 -16.51) (end 8.89 -14) (layer F.Fab) (width 0.12))
-          (fp_line (start -8.89 -16.5) (end -8.89 -13.99) (layer B.Fab) (width 0.12))
-          (fp_line (start 8.89 -16.51) (end 8.89 -14) (layer B.Fab) (width 0.12))
-          (fp_line (start -8.89 -16.51) (end 8.89 -16.51) (layer B.Fab) (width 0.12))
+          (fp_line (start -9 -16.65) (end 9 -16.65) (layer F.Fab) (width 0.12))
+          (fp_line (start 9 -16.65) (end 9 16.65) (layer F.Fab) (width 0.12))
+          (fp_line (start 9 16.65) (end -9 16.65) (layer F.Fab) (width 0.12))
+          (fp_line (start -9 -16.65) (end -9 16.65) (layer F.Fab) (width 0.12))
+          (fp_line (start -9 -16.65) (end 9 -16.65) (layer B.Fab) (width 0.12))
+          (fp_line (start 9 -16.65) (end 9 16.65) (layer B.Fab) (width 0.12))
+          (fp_line (start 9 16.65) (end -9 16.65) (layer B.Fab) (width 0.12))
+          (fp_line (start -9 -16.65) (end -9 16.65) (layer B.Fab) (width 0.12))
 
           ${''/* Socket outlines */}
           (fp_line (start 6.29 -11.43) (end 8.95 -11.43) (layer F.SilkS) (width 0.12))

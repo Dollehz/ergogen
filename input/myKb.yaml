@@ -27,14 +27,14 @@ points:
               bind: [0,0,0,0]
               column_net: P10
             home:
-              bind: [0,10,0,0]
+              bind: [0,0,0,0]
               column_net: P9
             top:
               bind: [0,10,0,0]
               column_net: P4
         ring:
           key:
-            stagger: (5/6)cy
+            stagger: cy
             splay: -5
           rows:
             bottom:
@@ -48,20 +48,22 @@ points:
               column_net: P3
         middle:
           key:
-            stagger: cy/3
+            stagger: cy/2
             splay: -5
           rows:
             bottom:
-              bind: [0,0,cy/3,0]
+              bind: [0,5,cy/3,5]
               column_net: P14
             home:
+              bind: [0, 5, 0, 5]
               column_net: P7
             top:
+              bind: 0
               column_net: P2
         index:
           key:
-            origin: [-cx/2,-cy/2+1/3cy] #to make symetric 
-            stagger: -cy/3
+            origin: [-cx/2,-cy/2+1/2cy] #to make symetric 
+            stagger: -cy/2
             splay: -5
           rows:
             bottom:
@@ -90,7 +92,7 @@ points:
       anchor:
         - ref: matrix_inner_bottom
         - shift: [-(cy-cx)/2,-1.5cx-(cy-1.5cx)/2] # move to overlap bottom left corner
-        - shift: [13cx/10,-2cy/10] # move for spacing
+        - shift: [1.5cx,-4cy/10] # move for spacing
       key:
         spread: -cx
       columns:
@@ -209,38 +211,54 @@ pcbs:
         what: niceNanoPretty
         where:
           ref: matrix_inner_top
-          shift: [1cx+1, -35/2 + cy/2]
+          shift: [19,-8.7]
       mountingHole1:
         what: reinforcedMountHole
         where:
-          ref: matrix_pinky_top
-          shift: [cx/2 + ((13cy/6)-1.1) * tan(2.5deg),cy/2-1.1]
-      #mountingHoleRingMiddle:
-       # what: reinforcedMountHole
-       # where:
-       # ref: matrix_ring_top
-       # shift: [cx/2 + ((8cy/3)-(1.1+cy/2)) * tan(2.5deg),0]
-      # mountingHoleBelowMcu:
-      #   what: reinforcedMountHole
-      #   where:
-      #     ref: matrix_index_bottom
-      #     shift: [2cx+2, ((innrThumbTopY - innrThumbTopX * tan(15deg)) + cy/2) / 2 - (cy/2)]
+          aggregate:
+            parts:
+              - matrix_pinky_top
+              - matrix_ring_home
+      # mountingHoleRingMiddle:
+      #  what: reinforcedMountHole
+      #  where:
+      #     - aggregate:
+      #         parts:
+      #           - matrix_ring_top
+      #           - ref: matrix_middle_top
+      #             shift: [0,-cy/2]
       mountingHole3:
-        what: reinforcedMountHole
-        where:
-          ref: matrix_middle_home
-          shift: [cx/2 + (2cy - 1.1) * tan(2.5deg),cy/2]
+       what: reinforcedMountHole
+       where:
+          - aggregate:
+              parts:
+                - matrix_index_top
+                - ref: matrix_middle_top
+                  shift: [0,-cy/2]
       mountingHole4:
         what: reinforcedMountHole
         where:
-          ref: matrix_index_bottom
-          shift: [0, ((innrThumbTopY - innrThumbTopX * tan(15deg)) + cy/2) / 2 - (cy/2)]
+          ref: matrix_middle_bottom
+          shift: [0, -(cy/2 + cy/3/2 + 1/2) ]
 
       mountingHole5:
         what: reinforcedMountHole
         where:
-          ref: thumb_right
-          shift: [0,(1.5cx/2) * tan(12.5deg) + cy/2]
+          - aggregate:
+              parts:
+                - ref: matrix_inner_bottom
+                  shift: [39/2 -10, 0]
+                - thumb_center
+      # mountingHole6:
+      #   what: reinforcedMountHole
+      #   where:
+      #     - aggregate:
+      #         parts:
+      #           - matrix_index_home
+      #           - matrix_index_bottom
+      #     - shift: [cx/2, 0]
+
+
       resetSwitch:
         what: miniReset
         where:
