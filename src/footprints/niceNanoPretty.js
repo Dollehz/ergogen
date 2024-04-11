@@ -454,9 +454,9 @@ module.exports = {
           )
 
           ${''/* USB Socket Outline */}
-          (fp_line (start -4.5 -16.65) (end -4.5 -18.15) (layer Dwgs.User) (width 0.15))
-          (fp_line (start -4.5 -18.15) (end 4.5 -18.15) (layer Dwgs.User) (width 0.15))
-          (fp_line (start 4.5 -18.15) (end 4.5 -16.65) (layer Dwgs.User) (width 0.15))
+          (fp_line (start -4.5 -16.65) (end -4.5 -17.5) (layer Dwgs.User) (width 0.15))
+          (fp_line (start -4.5 -17.5) (end 4.5 -17.5) (layer Dwgs.User) (width 0.15))
+          (fp_line (start 4.5 -17.5) (end 4.5 -16.65) (layer Dwgs.User) (width 0.15))
 
 
           ${''/* Controller top part outline */}

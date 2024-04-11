@@ -211,7 +211,7 @@ pcbs:
         what: niceNanoPretty
         where:
           ref: matrix_inner_top
-          shift: [19,-8.7]
+          shift: [19,-8.5]
       mountingHole1:
         what: reinforcedMountHole
         where:
@@ -263,7 +263,7 @@ pcbs:
         what: miniReset
         where:
           ref: matrix_inner_bottom
-          shift: [cx/2 + 20 -3, 3]
+          shift: [cx/2 + 20 - 1.25 - 1, 4.9]
           rotate: -90
         params:
           #reversible: true
@@ -273,7 +273,7 @@ pcbs:
         what: batteryConnector
         where:
           ref: matrix_inner_bottom
-          shift: [cx/2 + 2.85, 3]
+          shift: [cx/2 + 1 + 1.35, 4.9]
           rotate: 90
         params:
           reversible: true
@@ -289,6 +289,6 @@ pcbs:
         what: powerSwitch
         where:
           ref: matrix_inner_bottom
-          shift: [cx/2 + 20, -3]
+          shift: [cx/2 + 20-3, -3]
         params:
           reversible: true

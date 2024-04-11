@@ -6,7 +6,6 @@ module.exports = {
 	reverse: true
     },
     body: p => {
-        console.log(p);
 	    const standard = `
 	(module Button_Switch_SMD:SW_SPST_B3U-1000P (layer F.Cu) (tedit 5A02FC95)
         ${p.at /* parametric position */}
@@ -32,13 +31,10 @@ module.exports = {
 		    ${''/* pins */}
 	  (pad 1 smd rect (at ${def_neg}1.7 0) (size 0.9 1.7) (layers ${def_side}.Cu ${def_side}.Paste ${def_side}.Mask) ${p.from})
 	  (pad 2 smd rect (at ${def_pos}1.7 0) (size 0.9 1.7) (layers ${def_side}.Cu ${def_side}.Paste ${def_side}.Mask) ${p.to})
+	  (pad 1 thru_hole circle (at 0 .5) (size 0.6 0.6) (drill 0.3) (layers *.Cu) ${p.to})
+	  (pad 1 thru_hole circle (at 0 -.5) (size 0.6 0.6) (drill 0.3) (layers *.Cu) ${p.from})
 		  `
 	    }
-        console.log(`
-		${standard}
-		${pins('-', '', 'B')}
-		${pins('', '-', 'F')})
-		`);
 	    if(p.reverse) {
 	      return `
 		${standard}

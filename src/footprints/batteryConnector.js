@@ -111,12 +111,18 @@ module.exports = {
                 (fp_line (start 2.25 0.25) (end -2.25 0.25) (width 0.1) (layer "F.Fab"))
                 (fp_line (start 2.95 -1.35) (end 2.25 -1.35) (width 0.1) (layer "F.Fab"))
                 (fp_line (start 2.95 6.25) (end 2.95 -1.35) (width 0.1) (layer "F.Fab"))
+                (fp_line (start -2.75 6.26) (end -2.75 8.65) (width 0.1) (layer "F.Fab"))
+                (fp_line (start -2.75 8.65) (end 2.75 8.65) (width 0.1) (layer "F.Fab"))
+                (fp_line (start 2.75 8.65) (end 2.75 6.26) (width 0.1) (layer "F.Fab"))
         `
         const front_courtyard = `
                 (fp_line (start -3.45 -1.85) (end -3.45 10.5) (width 0.05) (layer "F.CrtYd"))
                 (fp_line (start -3.45 10.5) (end 3.45 10.5) (width 0.05) (layer "F.CrtYd"))
                 (fp_line (start 3.45 -1.85) (end -3.45 -1.85) (width 0.05) (layer "F.CrtYd"))
                 (fp_line (start 3.45 10.5) (end 3.45 -1.85) (width 0.05) (layer "F.CrtYd"))
+                (fp_line (start -3 10.5) (end -3 13.3) (width 0.05) (layer "F.CrtYd"))
+                (fp_line (start -3 13.3) (end 3 13.3) (width 0.05) (layer "F.CrtYd"))
+                (fp_line (start 3 13.3) (end 3 10.5) (width 0.05) (layer "F.CrtYd"))
         `
         const front_silkscreen = `
                 (fp_line (start -1.5 7.40) (end -0.5 7.40) (width 0.1) (layer "F.SilkS"))
@@ -140,12 +146,18 @@ module.exports = {
                 (fp_line (start 2.25 0.25) (end 2.25 -1.35) (width 0.1) (layer "B.Fab"))
                 (fp_line (start 2.95 -1.35) (end 2.95 6.25) (width 0.1) (layer "B.Fab"))
                 (fp_line (start 2.95 6.25) (end -2.95 6.25) (width 0.1) (layer "B.Fab"))
+                (fp_line (start -2.75 6.26) (end -2.75 8.65) (width 0.1) (layer "B.Fab"))
+                (fp_line (start -2.75 8.65) (end 2.75 8.65) (width 0.1) (layer "B.Fab"))
+                (fp_line (start 2.75 8.65) (end 2.75 6.26) (width 0.1) (layer "B.Fab"))
         `
         const back_courtyard = `
                 (fp_line (start -3.45 -1.85) (end -3.45 10.5) (width 0.05) (layer "B.CrtYd"))
                 (fp_line (start -3.45 10.5) (end 3.45 10.5) (width 0.05) (layer "B.CrtYd"))
                 (fp_line (start 3.45 -1.85) (end -3.45 -1.85) (width 0.05) (layer "B.CrtYd"))
                 (fp_line (start 3.45 10.5) (end 3.45 -1.85) (width 0.05) (layer "B.CrtYd"))
+                (fp_line (start -3 10.5) (end -3 13.3) (width 0.05) (layer "B.CrtYd"))
+                (fp_line (start -3 13.3) (end 3 13.3) (width 0.05) (layer "B.CrtYd"))
+                (fp_line (start 3 13.3) (end 3 10.5) (width 0.05) (layer "B.CrtYd"))
         `
         const back_silkscreen = `
                 (fp_line (start 1.5 7.40) (end 0.5 7.40) (width 0.1) (layer "B.SilkS"))
@@ -299,6 +311,10 @@ module.exports = {
         (segment (start ${adjust_point(1, 1.8)}) (end ${adjust_point(1, 0)}) (width ${p.trace_width}) (layer "B.Cu") (net ${local_nets[1].index}))
         `
 
+        const via = `
+        (pad 1 thru_hole circle (at 0 5) (size 0.6 0.6) (drill 0.3) (layers *.Cu) (zone_connect 2) ${p.BAT_P.str})
+        (pad 1 thru_hole circle (at 0 4) (size 0.6 0.6) (drill 0.3) (layers *.Cu) (zone_connect 2) ${p.BAT_N.str})
+        `
         let final = standard_opening;
 
         if (p.side == "F" || p.reversible) {
@@ -330,6 +346,7 @@ module.exports = {
         } else if (p.side == "B") {
             final += back_pads;
         }
+        final += via
         final += standard_closing;
         if (p.reversible && p.include_traces) {
             final += reversible_traces;
